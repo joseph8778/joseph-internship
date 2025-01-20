@@ -12,9 +12,6 @@ const Home = () => {
     
   }, []);
 
-  //does this work?
-
-
   console.log('hello')
   return (
     <div id="wrapper">
