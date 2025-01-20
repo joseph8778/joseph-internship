@@ -11,7 +11,6 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log('hello')
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
