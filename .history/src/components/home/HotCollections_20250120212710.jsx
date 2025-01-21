@@ -4,7 +4,6 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Skeleton from "../UI/Skeleton";
 
 const HotCollections = () => {
   const [data, setData] = useState([]);
@@ -121,8 +120,9 @@ const HotCollections = () => {
 
 
 
+      <Slider {...sliderSettings}>
     {data && data.length > 0 ? (
-<Slider {...sliderSettings}>
+      <>
 {data.map((card) => (
   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-1" key={card.id}>
     <div className="nft_coll">
@@ -146,38 +146,16 @@ const HotCollections = () => {
     </div>
   </div>
 ))}
-</Slider>
+</>
     ) : (
-    <Slider {...sliderSettings}>
-
-      {Array.from({length: 5}).map((_, index) => (
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-1" key={index}>
-          <div className="nft_coll">
-            <div className="nft_wrap">
-              
-             <Skeleton width='100%' height='200px'
-             />
-            </div>
-
-            <div className="nft_coll_pp">
-            <Skeleton width='50px' height='50px'
-             borderRadius='100%'
-             />
-              <i className="fa fa-check"></i>
-            </div>
-
-            <div className="nft_coll_info">
-              <h4><Skeleton height='20px' width='100px'/></h4>
-              <Skeleton height='20px' width='60px'/>
-            </div>
-          </div>
-        </div>
-      ))}
-      </Slider>
+      <div>
+        Skeleton >:)
+      </div>
     )
       
     }
           
+          </Slider>
           </div>   
           </div>
     </section>

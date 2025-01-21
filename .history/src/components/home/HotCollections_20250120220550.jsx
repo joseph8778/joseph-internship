@@ -86,7 +86,7 @@ const HotCollections = () => {
       const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections')
       
     console.log(response.data)
-    setData(response.data)
+    // setData(response.data)
     
     } catch (error) {
       if (error.response) {
@@ -148,32 +148,30 @@ const HotCollections = () => {
 ))}
 </Slider>
     ) : (
-    <Slider {...sliderSettings}>
-
-      {Array.from({length: 5}).map((_, index) => (
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-1" key={index}>
-          <div className="nft_coll">
-            <div className="nft_wrap">
-              
-             <Skeleton width='100%' height='200px'
-             />
-            </div>
-
-            <div className="nft_coll_pp">
-            <Skeleton width='50px' height='50px'
-             borderRadius='100%'
-             />
-              <i className="fa fa-check"></i>
-            </div>
-
-            <div className="nft_coll_info">
-              <h4><Skeleton height='20px' width='100px'/></h4>
-              <Skeleton height='20px' width='60px'/>
-            </div>
-          </div>
+      <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-1">
+      <div className="nft_coll">
+        <div className="nft_wrap">
+          <div className="lazy img-fluid">
+        <Skeleton
+        width='100%'
+        height='100%'
+        />
         </div>
-      ))}
-      </Slider>
+        </div>
+        <div className="nft_coll_pp">
+          <Link to="/author">
+           <Skeleton className='/>
+          </Link>
+          <i className="fa fa-check"></i>
+        </div>
+        <div className="nft_coll_info">
+          <Link to="/explore">
+            <h4>Skeleton</h4>
+          </Link>
+          <span>ERC-</span>
+        </div>
+      </div>
+    </div>
     )
       
     }

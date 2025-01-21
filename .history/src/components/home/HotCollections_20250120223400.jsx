@@ -86,7 +86,7 @@ const HotCollections = () => {
       const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections')
       
     console.log(response.data)
-    setData(response.data)
+    setData(null)
     
     } catch (error) {
       if (error.response) {
@@ -148,7 +148,7 @@ const HotCollections = () => {
 ))}
 </Slider>
     ) : (
-    <Slider {...sliderSettings}>
+    <Slider {sliderSettings}>
 
       {Array.from({length: 5}).map((_, index) => (
         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-1" key={index}>
@@ -156,6 +156,7 @@ const HotCollections = () => {
             <div className="nft_wrap">
               
              <Skeleton width='100%' height='200px'
+             borderRadius='5px'
              />
             </div>
 
