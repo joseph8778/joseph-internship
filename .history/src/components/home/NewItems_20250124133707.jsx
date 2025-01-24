@@ -137,7 +137,7 @@ async function getData() {
             </div>
           </div>
 
-          <Slider {...sliderSettings}>
+          <Slider.memo {...sliderSettings}>
           {data ? (
             data.map((item, index) => {
               console.log('item created')

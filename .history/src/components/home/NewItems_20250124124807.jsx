@@ -12,7 +12,11 @@ const NewItems = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-    setCurrentTime(Date.now())
+    setData((prev) => {
+      prev.map((prev) => {
+        const timeLeft = calcTimer()
+      })
+    })
     }, 1000);
     
     return () => clearInterval(interval);

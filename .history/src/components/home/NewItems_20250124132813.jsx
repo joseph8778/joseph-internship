@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -125,6 +125,13 @@ async function getData() {
 
   }
 
+  const memoizedData = useMemo(() => {
+    return data.map((item) => {
+      const timeLeft = calcTimer(item.expiryDate);
+      return { ...item, timeLeft };
+    });
+  }, [data, currentTime]);
+
 
   return (
     <section id="section-items" className="no-bottom">
@@ -138,7 +145,7 @@ async function getData() {
           </div>
 
           <Slider {...sliderSettings}>
-          {data ? (
+          {memoizedData.length ? (
             data.map((item, index) => {
               console.log('item created')
               const timeLeft = calcTimer(item.expiryDate);

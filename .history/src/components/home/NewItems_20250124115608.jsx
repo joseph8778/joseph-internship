@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [currentTime, setCurrentTime] = useState(Date.now());
 
 
@@ -121,7 +121,7 @@ async function getData() {
 
     let hrs = (Math.floor(min / 60))
 
-    return {secTxt, minTxt, hrs, expiryDate}
+    return (secTxt, minTxt, hrs, expiryDate)
 
   }
 
@@ -158,7 +158,7 @@ async function getData() {
                   </Link>
                 </div>
               { Date.now() < item.expiryDate ? (
-                <div className="de_countdown">{timeLeft.hrs}h {timeLeft.minTxt}m {timeLeft.secTxt}s</div>
+                <div className="de_countdown">{calcTimer.hrs}h {calcTimer.minTxt}m {calcTimer.secTxt}s</div>
               ) : null
             }
                 

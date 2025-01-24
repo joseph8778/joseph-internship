@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [currentTime, setCurrentTime] = useState(Date.now());
 
 
@@ -111,6 +111,7 @@ async function getData() {
   }, []);
 
   const calcTimer = (expiryDate) => {
+    
     let timeLeft = expiryDate - currentTime 
     
     let sec = Math.floor(timeLeft / 1000)
@@ -121,7 +122,6 @@ async function getData() {
 
     let hrs = (Math.floor(min / 60))
 
-    return {secTxt, minTxt, hrs, expiryDate}
 
   }
 
@@ -141,7 +141,7 @@ async function getData() {
           {data ? (
             data.map((item, index) => {
               console.log('item created')
-              const timeLeft = calcTimer(item.expiryDate);
+              calcTimer(item.expiryDate);
               
               return (
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" key={item.id}>
@@ -157,8 +157,8 @@ async function getData() {
                   <i className="fa fa-check"></i>
                   </Link>
                 </div>
-              { Date.now() < item.expiryDate ? (
-                <div className="de_countdown">{timeLeft.hrs}h {timeLeft.minTxt}m {timeLeft.secTxt}s</div>
+              { Date.now() < expiryDate ? (
+                <div className="de_countdown">{hrs}h {minTxt}m {secTxt}s</div>
               ) : null
             }
                 

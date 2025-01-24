@@ -12,7 +12,7 @@ const NewItems = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-    setCurrentTime(Date.now())
+    setdat
     }, 1000);
     
     return () => clearInterval(interval);

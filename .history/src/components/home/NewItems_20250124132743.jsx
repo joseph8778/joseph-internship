@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -124,6 +124,13 @@ async function getData() {
     return {secTxt, minTxt, hrs, expiryDate}
 
   }
+
+  const memoizedData = useMemo(() => {
+    return data.map((item) => {
+      const timeLeft = calcTimer(item.expiryDate);
+      return { ...item, timeLeft };
+    });
+  }, [data, currentTime]);
 
 
   return (

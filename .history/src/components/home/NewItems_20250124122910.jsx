@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [currentTime, setCurrentTime] = useState(Date.now());
 
 
@@ -18,18 +18,13 @@ const NewItems = () => {
     return () => clearInterval(interval);
   }, []);
 
-  function SampleNextArrow(props) {
-    const { onClick } = props;
+  const SampleNextArrow = React.memo(({ onClick }) => {
     return (
-      <div
-        className='sliderArrow CarR'
-        style={{ display: "block"}}
-        onClick={onClick}
-      >
+      <div className="sliderArrow CarR" onClick={onClick}>
         ›
       </div>
     );
-  }
+  });
   
   function SamplePrevArrow(props) {
     const {onClick } = props;
@@ -45,7 +40,7 @@ const NewItems = () => {
   }
   
 
-  const sliderSettings = {
+  const sliderSettings = useMemo(() =>  ({
     infinite: true,
     speed: 250,
     slidesToShow: 4,
@@ -88,7 +83,7 @@ const NewItems = () => {
         },
       },
     ],
-  };
+  }));
 
 async function getData() {
     try {

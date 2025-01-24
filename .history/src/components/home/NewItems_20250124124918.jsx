@@ -12,7 +12,12 @@ const NewItems = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-    setCurrentTime(Date.now())
+    setData((prev) => {
+      prev.map((item) => {
+        const timeLeft = calcTimer(item.expiryDate)
+        return {...item, timeLeft}
+      })
+    })
     }, 1000);
     
     return () => clearInterval(interval);
@@ -121,7 +126,7 @@ async function getData() {
 
     let hrs = (Math.floor(min / 60))
 
-    return {secTxt, minTxt, hrs, expiryDate}
+    return {sec: secTxt, minTxt, hrs, expiryDate}
 
   }
 

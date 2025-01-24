@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [currentTime, setCurrentTime] = useState(Date.now());
 
 
@@ -45,7 +45,7 @@ const NewItems = () => {
   }
   
 
-  const sliderSettings = {
+  const sliderSettings = useMemo(() =>  ({
     infinite: true,
     speed: 250,
     slidesToShow: 4,
@@ -88,7 +88,7 @@ const NewItems = () => {
         },
       },
     ],
-  };
+  }));
 
 async function getData() {
     try {

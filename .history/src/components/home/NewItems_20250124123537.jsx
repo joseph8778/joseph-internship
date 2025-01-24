@@ -6,13 +6,13 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
-  const [currentTime, setCurrentTime] = useState(Date.now());
+  const [data, setData] = useState();
+ 
 
 
   useEffect(() => {
     const interval = setInterval(() => {
-    setCurrentTime(Date.now())
+    
     }, 1000);
     
     return () => clearInterval(interval);

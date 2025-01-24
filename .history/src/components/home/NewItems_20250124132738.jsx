@@ -125,6 +125,13 @@ async function getData() {
 
   }
 
+  const memoizedData = useMemo(() => {
+    return data.map((item) => {
+      const timeLeft = calcTimer(item.expiryDate);
+      return { ...item, timeLeft };
+    });
+  }, [data, currentTime]);
+
 
   return (
     <section id="section-items" className="no-bottom">

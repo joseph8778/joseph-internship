@@ -1,94 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Slider from "react-slick";
 
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
-  const [currentTime, setCurrentTime] = useState(Date.now());
-
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-    setCurrentTime(Date.now())
-    }, 1000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  function SampleNextArrow(props) {
-    const { onClick } = props;
-    return (
-      <div
-        className='sliderArrow CarR'
-        style={{ display: "block"}}
-        onClick={onClick}
-      >
-        ›
-      </div>
-    );
-  }
-  
-  function SamplePrevArrow(props) {
-    const {onClick } = props;
-    return (
-      <div
-        className='sliderArrow CarL'
-        style={{ display: "block" }}
-        onClick={onClick}
-      >
-        ‹
-      </div>
-    );
-  }
-  
-
-  const sliderSettings = {
-    infinite: true,
-    speed: 250,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          arrows: true,
-          speed: 250,
-         
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-      
-          arrows: true,
-          speed: 250,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-      
-          arrows: true,
-          speed: 250,
-        },
-      },
-    ],
-  };
+  const [data, setData] = useState();
 
 async function getData() {
     try {
@@ -110,21 +27,6 @@ async function getData() {
       getData();
   }, []);
 
-  const calcTimer = (expiryDate) => {
-    let timeLeft = expiryDate - currentTime 
-    
-    let sec = Math.floor(timeLeft / 1000)
-    let secTxt = (sec % 60)
-
-    let min = Math.floor(sec / 60)
-    let minTxt = (min % 60)
-
-    let hrs = (Math.floor(min / 60))
-
-    return {secTxt, minTxt, hrs, expiryDate}
-
-  }
-
 
   return (
     <section id="section-items" className="no-bottom">
@@ -136,15 +38,15 @@ async function getData() {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-
-          <Slider {...sliderSettings}>
           {data ? (
             data.map((item, index) => {
-              console.log('item created')
-              const timeLeft = calcTimer(item.expiryDate);
+              let expiryDate = item.expiryDate
+              setInterval(() => {
+                let timeLeft = expiryDate - Date.now()
+              }, 1000);
               
               return (
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" key={item.id}>
+                <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={item.id}>
               <div className="nft__item">
               <div className="author_list_pp">
               <Link
@@ -157,10 +59,10 @@ async function getData() {
                   <i className="fa fa-check"></i>
                   </Link>
                 </div>
-              { Date.now() < item.expiryDate ? (
-                <div className="de_countdown">{timeLeft.hrs}h {timeLeft.minTxt}m {timeLeft.secTxt}s</div>
+              { Date.now() < expiryDate ? (
+                <div className="de_countdown">hr 17min 36s</div>
               ) : null
-            }
+              }
                 
                 <div className="nft__item_wrap">
                 <div className="nft__item_extra">
@@ -202,10 +104,9 @@ async function getData() {
                 </div>
                 </div>
               )
-            })
+                })
               ) : (<>Skeleton!</>)
             }
-            </Slider>
         </div>
         </div>
         </section>

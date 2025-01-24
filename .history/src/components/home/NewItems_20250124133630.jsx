@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -125,6 +125,13 @@ async function getData() {
 
   }
 
+  const memoizedData = useMemo(() => {
+    return data.map((item) => {
+      const timeLeft = calcTimer(item.expiryDate);
+      return { ...item, timeLeft };
+    });
+  }, [data, currentTime]);
+
 
   return (
     <section id="section-items" className="no-bottom">
@@ -138,10 +145,9 @@ async function getData() {
           </div>
 
           <Slider {...sliderSettings}>
-          {data ? (
-            data.map((item, index) => {
+          {memoizedData.length > 0 ? (
+            memoizedData.map((item, index) => {
               console.log('item created')
-              const timeLeft = calcTimer(item.expiryDate);
               
               return (
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" key={item.id}>
@@ -157,8 +163,8 @@ async function getData() {
                   <i className="fa fa-check"></i>
                   </Link>
                 </div>
-              { Date.now() < item.expiryDate ? (
-                <div className="de_countdown">{timeLeft.hrs}h {timeLeft.minTxt}m {timeLeft.secTxt}s</div>
+              { Date.now() < item.expiryDate (
+                <div className="de_countdown">{item.timeLeft.hrs}h {item.timeLeft.minTxt}m {item.timeLeft.secTxt}s</div>
               ) : null
             }
                 

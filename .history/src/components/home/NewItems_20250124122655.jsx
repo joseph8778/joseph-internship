@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [currentTime, setCurrentTime] = useState(Date.now());
 
 
@@ -18,7 +18,7 @@ const NewItems = () => {
     return () => clearInterval(interval);
   }, []);
 
-  function SampleNextArrow(props) {
+  const SampleNextArrow(props) {
     const { onClick } = props;
     return (
       <div

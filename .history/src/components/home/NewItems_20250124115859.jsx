@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -6,8 +6,8 @@ import Slider from "react-slick";
 
 
 const NewItems = () => {
-  const [data, setData] = useState([]);
-  const [currentTime, setCurrentTime] = useState(Date.now());
+  const [data, setData] = useState();
+  const currentTimeRef = useRef(Date.now());
 
 
   useEffect(() => {
