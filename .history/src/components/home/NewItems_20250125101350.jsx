@@ -126,7 +126,7 @@ const NewItems = () => {
                         <Link to={`/author/${item.authorId}`}
                           data-bs-toggle="tooltip"
                           data-bs-placement="top"
-                          title={`Creator of: ${item.title} NFT`}
+                          title={`Creator of: ${}`}
                         >
                           <img className="lazy" src={item.authorImage} alt="" />
                           <i className="fa fa-check"></i>
@@ -160,7 +160,7 @@ const NewItems = () => {
                           </div>
                         </div>
 
-                        <Link to={`/item-details/${item.nftId}`}>
+                        <Link to="/item-details">
                           <img
                             src={item.nftImage}
                             className="lazy nft__item_preview"
@@ -170,7 +170,7 @@ const NewItems = () => {
                       </div>
 
                       <div className="nft__item_info">
-                        <Link to={`/item-details/${item.nftId}`}>
+                        <Link to="/item-details">
                           <h4>{item.title}</h4>
                         </Link>
                         <div className="nft__item_price">{item.price} ETH</div>
