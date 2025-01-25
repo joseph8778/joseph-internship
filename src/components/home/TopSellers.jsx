@@ -11,7 +11,6 @@ const TopSellers = () => {
       try {
           const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers')
           setData(response.data)
-          console.log(response.data)
         } catch(error) {
           if (error.response) {
             console.log('Error response:' + error.response.data)
@@ -22,7 +21,6 @@ const TopSellers = () => {
           }
       }
   }
-      
     fetchData();
   }, []);
     
@@ -61,7 +59,6 @@ const TopSellers = () => {
                     ))
                   ) : (
                     new Array(12).fill(0).map((_, index) => {
-                      console.log('hello')
                       return (
 
                         <li key={index}>

@@ -3,14 +3,25 @@ import SubHeader from "../images/subheader.jpg";
 import ExploreItems from "../components/explore/ExploreItems";
 
 const Explore = () => {
+  const [data, setData] = useState();
 
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchData();
   }, []);
 
 
-
+async function fetchData() {
+  try {
+   let response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/explore')
+   setData(response.data)
+  } catch(error) {
+    if (error.response) {
+      console.log(error.response.)
+    }
+  }
+}
 
 
 
