@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AuthorImage from "../../images/author_thumbnail.jpg";
 import axios from "axios";
-import Skeleton from '../UI/Skeleton'
 
 const TopSellers = () => {
   const [data, setData] = useState();
@@ -10,7 +10,7 @@ const TopSellers = () => {
   async function fetchData() {
       try {
           const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers')
-          setData(response.data)
+          setData(null)
           console.log(response.data)
         } catch(error) {
           if (error.response) {
@@ -64,17 +64,18 @@ const TopSellers = () => {
 
                         <li key={index}>
                     <div className="author_list_pp">
-                        <Skeleton width='50px' height='50px' borderRadius='50%'/>
+                    <Link to="/author">
+                    <img
+                    className="lazy pp-author"
+                    src={AuthorImage}
+                    alt=""
+                    />
                         <i className="fa fa-check"></i>
-                      
+                        </Link>
                         </div>
                         <div className="author_list_info">
-                        <Link to="/author">
-                        <Skeleton width='70%' height='20px'/>
-                        </Link>
-                        <span>
-                          <Skeleton height='18px' width='30%'/>
-                        </span>
+                        <Link to="/author">Joseph Rigby</Link>
+                        <span>1.42 ETH</span>
                         </div>
                     </li>
                   )
