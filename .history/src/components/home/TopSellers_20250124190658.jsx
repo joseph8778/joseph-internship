@@ -10,7 +10,7 @@ const TopSellers = () => {
   async function fetchData() {
       try {
           const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers')
-          setData(response.data)
+          setData(null)
           console.log(response.data)
         } catch(error) {
           if (error.response) {
@@ -70,11 +70,9 @@ const TopSellers = () => {
                         </div>
                         <div className="author_list_info">
                         <Link to="/author">
-                        <Skeleton width='70%' height='20px'/>
+                        <Skeleton width='100%' height='20px'/>
                         </Link>
-                        <span>
-                          <Skeleton height='18px' width='30%'/>
-                        </span>
+                        <span>1.42 ETH</span>
                         </div>
                     </li>
                   )
