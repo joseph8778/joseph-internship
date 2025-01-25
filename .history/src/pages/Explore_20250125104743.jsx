@@ -3,6 +3,7 @@ import SubHeader from "../images/subheader.jpg";
 import ExploreItems from "../components/explore/ExploreItems";
 
 const Explore = () => {
+  const [data, setData] = useState();
 
 
   useEffect(() => {

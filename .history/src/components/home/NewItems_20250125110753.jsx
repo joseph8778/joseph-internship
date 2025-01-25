@@ -5,7 +5,6 @@ import Slider from "react-slick";
 import SampleNextArrow from "../UI/SampleNextArrow";
 import SamplePrevArrow from "../UI/SamplePrevArrow";
 import Skeleton from "../UI/Skeleton";
-import Countdown from "../UI/Countdown";
 
 const NewItems = () => {
   const [data, setData] = useState([]);
@@ -73,9 +72,33 @@ const NewItems = () => {
     fetchData();
   }, []);
 
+  const calculateTimer = (expiryDate) => {
+    const currentTime = Date.now();
+    const timeLeft = expiryDate - currentTime;
 
+    if (timeLeft <= 0) {
+      return { expired: "Expired" };
+    }
 
+    const sec = Math.floor(timeLeft / 1000) % 60;
+    const min = Math.floor(timeLeft / (1000 * 60)) % 60;
+    const hrs = Math.floor(timeLeft / (1000 * 60 * 60));
 
+    return { sec, min, hrs, expiryDate };
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setData((prevData) =>
+        prevData.map((item) => ({
+          ...item,
+          timer: calculateTimer(item.expiryDate),
+        }))
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [data]);
 
   return (
     <section id="section-items" className="no-bottom">
@@ -91,7 +114,7 @@ const NewItems = () => {
           <Slider {...sliderSettings}>
             {data.length > 0 ? (
               data.map((item) => {
-                
+                const timeLeft = item.timer || calculateTimer(item.expiryDate);
 
                 return (
                   <div
@@ -110,8 +133,8 @@ const NewItems = () => {
                         </Link>
                       </div>
 
-                      <Countdown item={item} data={data} setData={setData}/>
-
+                    <Count
+                    
                       <div className="nft__item_wrap">
                         <div className="nft__item_extra">
                           <div className="nft__item_buttons">

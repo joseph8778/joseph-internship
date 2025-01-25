@@ -5,7 +5,6 @@ import Slider from "react-slick";
 import SampleNextArrow from "../UI/SampleNextArrow";
 import SamplePrevArrow from "../UI/SamplePrevArrow";
 import Skeleton from "../UI/Skeleton";
-import Countdown from "../UI/Countdown";
 
 const NewItems = () => {
   const [data, setData] = useState([]);
@@ -73,9 +72,33 @@ const NewItems = () => {
     fetchData();
   }, []);
 
+  const calculateTimer = (expiryDate) => {
+    const currentTime = Date.now();
+    const timeLeft = expiryDate - currentTime;
 
+    if (timeLeft <= 0) {
+      return { expired: "Expired" };
+    }
 
+    const sec = Math.floor(timeLeft / 1000) % 60;
+    const min = Math.floor(timeLeft / (1000 * 60)) % 60;
+    const hrs = Math.floor(timeLeft / (1000 * 60 * 60));
 
+    return { sec, min, hrs, expiryDate };
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setData((prevData) =>
+        prevData.map((item) => ({
+          ...item,
+          timer: calculateTimer(item.expiryDate),
+        }))
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [data]);
 
   return (
     <section id="section-items" className="no-bottom">
@@ -91,7 +114,7 @@ const NewItems = () => {
           <Slider {...sliderSettings}>
             {data.length > 0 ? (
               data.map((item) => {
-                
+                const timeLeft = item.timer || calculateTimer(item.expiryDate);
 
                 return (
                   <div
@@ -100,17 +123,24 @@ const NewItems = () => {
                   >
                     <div className="nft__item">
                       <div className="author_list_pp">
-                        <Link to={`/author/${item.authorId}`}
+                        <Link
+                          to="/author"
                           data-bs-toggle="tooltip"
                           data-bs-placement="top"
-                          title={`Creator of: ${item.title} NFT`}
+                          title="Creator: Monica Lucas"
                         >
                           <img className="lazy" src={item.authorImage} alt="" />
                           <i className="fa fa-check"></i>
                         </Link>
                       </div>
 
-                      <Countdown item={item} data={data} setData={setData}/>
+                      {Date.now() < item.expiryDate && (
+                        <div className="de_countdown">
+                          {timeLeft.expired
+                            ? timeLeft.expired
+                            : `${timeLeft.hrs}h ${timeLeft.min}m ${timeLeft.sec}s`}
+                        </div>
+                      )}
 
                       <div className="nft__item_wrap">
                         <div className="nft__item_extra">
@@ -131,7 +161,7 @@ const NewItems = () => {
                           </div>
                         </div>
 
-                        <Link to={`/item-details/${item.nftId}`}>
+                        <Link to="/item-details">
                           <img
                             src={item.nftImage}
                             className="lazy nft__item_preview"
@@ -141,7 +171,7 @@ const NewItems = () => {
                       </div>
 
                       <div className="nft__item_info">
-                        <Link to={`/item-details/${item.nftId}`}>
+                        <Link to="/item-details">
                           <h4>{item.title}</h4>
                         </Link>
                         <div className="nft__item_price">{item.price} ETH</div>
