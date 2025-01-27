@@ -30,7 +30,7 @@ const ExploreItems = () => {
 
   return (
     <>
-      <div>
+      <div >
         <select id="filter-items" defaultValue="" onChange={(event) => setFilter(event.target.value)}>
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
@@ -42,7 +42,7 @@ const ExploreItems = () => {
       {data.length > 0 ? (
         <>
           {data.slice(0, maxLength).map((item, index) => (
-            <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12" style={{ display: "block", backgroundSize: "cover" }}>
+            <div data-aos='fade-in' data-aos-once='true' data-aos-delay='100' key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12" style={{ display: "block", backgroundSize: "cover" }}>
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link to={`/author/${item.authorId}`} data-bs-toggle="tooltip" data-bs-placement="top">
