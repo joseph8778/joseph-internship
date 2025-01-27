@@ -14,6 +14,7 @@ function App() {
     Aos.init({
       duration: 1000,
       //git your self
+      //Yeller there
     });
   }, []); 
 
