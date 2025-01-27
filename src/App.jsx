@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     Aos.init({
       duration: 1000,
-      //Yeller 
+      //git your self
     });
   }, []); 
 
