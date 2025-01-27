@@ -17,12 +17,12 @@ const Landing = () => {
           <div className="row align-items-center">
             <div className="col-md-6">
               <div className="spacer-single"></div>
-              <h6>
-                <span
-                data-aos='fade-up'
+              <h6 data-aos='fade-up'
                 data-aos-once='true'
                 data-aos-offset="-200"
-                data-aos-delay='300'
+                data-aos-delay='300'>
+                <span
+                
                 className="text-uppercase id-color-2">
                   Ultraverse Market
                 </span>
